@@ -28,7 +28,8 @@ def client():
 
 def public_ok(url):
     try:
-        req = urllib.request.Request(url, method="HEAD")
+        # Cloudflare refuse le User-Agent par défaut « Python-urllib » (403) : on en fixe un.
+        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "emotionless-pipeline/1.0"})
         with urllib.request.urlopen(req, timeout=20) as r:
             return r.status == 200
     except Exception as e:
