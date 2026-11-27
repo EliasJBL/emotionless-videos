@@ -1,0 +1,50 @@
+{
+  "id": "2026-11-27-serie-perdante",
+  "talk": "out/2026-11-27-serie-perdante-talk.mp4",
+  "hook": "Six pertes d'affilée : ta méthode est *cassée* ?",
+  "kicker": "Gestion du risque",
+  "cta": "Suis le compte pour le _prochain tip._",
+  "caption": "Ta pire série de pertes d'affilée, c'était combien ? 👇 #trading #gestiondurisque #psychologietrading #trader",
+  "lines": [
+    {
+      "text": "Six pertes d'affilée. Ta méthode est cassée ?",
+      "display": "6 pertes d'affilée. Ta méthode est *cassée* ?",
+      "scene": "cat"
+    },
+    {
+      "text": "Même à cinquante-cinq pour cent de réussite…",
+      "display": "Même à _55 %_ de réussite…",
+      "scene": "viz",
+      "kit": "counter",
+      "data": {
+        "label": "Exemple : taux de réussite",
+        "value": "55 %",
+        "tone": "calm"
+      }
+    },
+    {
+      "text": "six pertes de suite finissent par arriver.",
+      "display": "*6 pertes* de suite finissent par arriver.",
+      "scene": "viz",
+      "kit": "candles",
+      "data": {
+        "trend": "down",
+        "mark": "6 pertes",
+        "tone": "tilt"
+      }
+    },
+    {
+      "text": "C'est les maths, pas un bug.",
+      "scene": "cat"
+    },
+    {
+      "text": "Mon risque est prévu pour ça.",
+      "display": "Mon risque est _prévu_ pour ça.",
+      "scene": "cat"
+    },
+    {
+      "text": "La série passe. Moi, je reste.",
+      "scene": "cat"
+    }
+  ]
+}

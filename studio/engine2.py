@@ -23,10 +23,15 @@ def clip_frames(name):
     if name not in _frames:
         c = CLIPS[name]
         vf = f"fps={FPS},crop={c['crop']},scale={W}:{H}:flags=lanczos"
-        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", str(c.get("start", 0)), "-i", os.path.join(ROOT, "clips", c["file"]),
-                              "-vf", vf, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
-        n = len(raw) // (W * H * 3)
-        fr = [Image.frombytes("RGB", (W, H), raw[i * W * H * 3:(i + 1) * W * H * 3]) for i in range(n)]
+        # Lecture image par image : ne garde jamais tout le flux brut en mémoire (évite l'OOM sur les clips de 15 s).
+        pr = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", str(c.get("start", 0)), "-i", os.path.join(ROOT, "clips", c["file"]),
+                               "-vf", vf, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+        fr, sz = [], W * H * 3
+        while True:
+            buf = pr.stdout.read(sz)
+            if len(buf) < sz: break
+            fr.append(Image.frombytes("RGB", (W, H), buf))
+        pr.wait()
         _frames[name] = fr if c.get("sync") else fr + fr[-2:0:-1]
     return _frames[name]
 
@@ -43,7 +48,9 @@ def blurred_at(name, t):
     key = (name, i)
     if key not in _blur:
         im = fr[i].resize((W // 4, H // 4)).filter(ImageFilter.GaussianBlur(6)).resize((W, H))
-        _blur[key] = Image.blend(im, Image.new("RGB", (W, H), E.BG), 0.55)
+        im = Image.blend(im, Image.new("RGB", (W, H), E.BG), 0.55)
+        if CLIPS[name].get("sync"): return im  # clip lip-sync : chaque image ne sert qu'une fois, pas de cache
+        _blur[key] = im
     return _blur[key]
 
 def push(im, k, z0=1.0, z1=1.08, shake=(0, 0)):
