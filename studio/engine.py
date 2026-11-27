@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 W, H, FPS, SS = 1080, 1920, 30, 2
-BG = (16, 17, 21)                      # = fond des images du chat
+BG = (22, 24, 29)                      # fond de la vidéo (le chat est détouré)
 C = dict(bg=BG, ink=(22, 24, 29), surface=(35, 38, 46), line=(58, 63, 74), paper=(241, 236, 226),
          muted=(154, 160, 170), tilt=(255, 107, 44), calm=(91, 141, 239))
 POSES = ["point", "shock", "confident", "think", "facepalm"]
@@ -121,27 +121,20 @@ def phrase(d, words, a0, a1, t, cy):
 # ---------- le chat ----------
 _cat = {}
 def cat_img(pose):
+    """Poses détourées (PNG transparent, sans fond ni ombre), recadrées au plus juste."""
     if pose not in _cat:
-        im = Image.open(os.path.join(ROOT, "cat", pose + ".jpg")).convert("RGB")
-        m = Image.new("L", im.size, 0)
-        md = ImageDraw.Draw(m)
-        w, h = im.size
-        for i in range(60):                       # bords fondus dans le fond
-            v = int(255 * (i + 1) / 60)
-            md.rectangle([i, i, w - 1 - i, h - 1 - i], outline=v)
-        md.rectangle([60, 60, w - 61, h - 61], fill=255)
-        _cat[pose] = (im, m)
+        _cat[pose] = Image.open(os.path.join(ROOT, "cat", pose + ".png")).convert("RGBA")
     return _cat[pose]
 
-def paste_cat(base, pose, t, t_pose, cx, bottom, width):
-    im, m = cat_img(pose)
+def paste_cat(base, pose, t, t_pose, cx, bottom, height):
+    im = cat_img(pose)
     breathe = 1 + 0.012 * math.sin(2 * math.pi * t / 2.4)
     punch = 1 + 0.06 * (1 - ease((t - t_pose) / 0.22)) if t >= t_pose else 1
-    s = width / im.width * breathe * punch
+    s = height / im.height * breathe * punch
     w, h = int(im.width * s), int(im.height * s)
     bob = 6 * math.sin(2 * math.pi * t / 2.4 + 1)
     x, y = int(cx - w / 2), int(bottom - h + bob)
-    base.paste(im.resize((w, h), Image.BILINEAR), (x, y), m.resize((w, h), Image.BILINEAR))
+    base.paste(im.resize((w, h), Image.BILINEAR), (x, y), im.resize((w, h), Image.BILINEAR))
 
 # ---------- kits de schéma ----------
 def kit_counter(d, data, k, t):
@@ -300,10 +293,10 @@ def frame(spec, lines, end, t):
         d.text((P(72), P(200)), spec.get("kicker", "LA RÈGLE").upper(), font=F_MONO, fill=C["muted"])
         d.rectangle([P(72), P(252), P(1008), P(254)], fill=C["line"])
         phrase(d, parse(cur.get("display", cur["text"])), cur["a"], cur["b"], tq, 500)
-        paste_cat(base, cur["_pose"], t, cur["_pose_t"], 880, 1760, 360)      # mini-chat en bas à droite
+        paste_cat(base, cur["_pose"], t, cur["_pose_t"], 870, 1740, 380)      # mini-chat en bas à droite
     else:
-        paste_cat(base, cur["_pose"], t, cur["_pose_t"], 540, 1560, 1040)
-        kinetic(d, parse(cur.get("display", cur["text"])), cur["a"], cur["b"], tq, 1420)
+        paste_cat(base, cur["_pose"], t, cur["_pose_t"], 540, 1400, 960)
+        kinetic(d, parse(cur.get("display", cur["text"])), cur["a"], cur["b"], tq, 1510)
         if t < min(3.2, lines[0]["t1"] + 0.6) and spec.get("hook"):
             block(d, parse(spec["hook"]), F_HOOK, 290, 880, 82)
         if cur is lines[-1] and spec.get("cta"):
