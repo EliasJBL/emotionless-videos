@@ -12,7 +12,7 @@ JBL relit et valide les brouillons dans l'app Buffer. Rien n'est publié sans lu
 
 | Quoi | Valeur |
 |---|---|
-| Hébergement | `https://eliasjbl.github.io/emotionless-videos/videos/<id>.mp4` (GitHub Pages, branche `main`, dossier `/docs`) |
+| Hébergement | **Cloudflare R2** : `https://pub-36aa0d0b37534188aa7554e74fd22d90.r2.dev/videos/<id>.mp4` via `studio/upload_r2.py` (identifiants dans les variables d'environnement `R2_*`, jamais dans le dépôt). Secours seulement si R2 échoue : GitHub Pages `https://eliasjbl.github.io/emotionless-videos/videos/<id>.mp4`. |
 | Voix | ElevenLabs Nina — `KJQQsXoF7bILneDTYLOG`, modèle `eleven_v4`, **1 seule prise** (`generations_count: 1`) |
 | Lip-sync | ElevenLabs `heygen-avatar6-turbo`, image de départ = nœud `d4PjCzuk3RvqjipXTdJe` (chatte au bureau, vertical) |
 | Flow ElevenLabs | `M1Iu3QBiuA7YmZmw6Oel` (tout se fait sur ce flow) |
@@ -38,9 +38,9 @@ JBL relit et valide les brouillons dans l'app Buffer. Rien n'est publié sans lu
 4. **Lip-sync** : `creative_generate_video` avec `model_id: "heygen-avatar6-turbo"`, `flow_id` ci-dessus, `connect_from: ["d4PjCzuk3RvqjipXTdJe", "<node_id de la voix>"]`, prompt de jeu court (ex. « Playful, expressive delivery with natural head tilts, ear twitches and paw gestures, engaged eye contact. »). Attendre ~2 min, puis `creative_get_flow_run_status` ; télécharger le mp4 en `out/<id>-talk.mp4`. Ne jamais relancer une génération pour « réessayer ».
 5. **Contrôle** : `python3 studio/engine2.py check specs/<id>.json out/<id>.png --vo out/<id>.mp3`, puis **regarder l'image**. Vérifier que chaque ligne s'affiche au bon moment et que rien ne déborde. Corriger la spec si besoin (jamais la voix).
 6. **Rendu** : `python3 studio/engine2.py render specs/<id>.json out/<id>.mp4 --vo out/<id>.mp3`.
-7. **Hébergement** : copier `out/<id>.mp4` vers `docs/videos/<id>.mp4` ; ajouter les ids à `tips/used.json` ; supprimer de `docs/videos/` les vidéos de plus de 28 jours ; `git add`, commit, `git push` sur `main`. Attendre ~2 min (déploiement Pages).
+7. **Hébergement** : `pip install boto3` si besoin, puis `python3 studio/upload_r2.py put out/<id>.mp4` → l'URL affichée est l'URL publique de la vidéo. Lancer aussi `python3 studio/upload_r2.py prune 28`. Ajouter l'id à `tips/used.json`, puis commit + push sur `main` de la spec et de `tips/used.json` **uniquement** (plus de mp4 dans le dépôt). **Secours** si R2 échoue (variables absentes, réseau refusé) : copier la vidéo dans `docs/videos/<id>.mp4`, commit + push, attendre ~2 min, utiliser l'URL GitHub Pages, et signaler l'échec R2 dans le compte rendu.
 8. **Buffer** : pour chaque vidéo, sur **chaque canal autorisé du tableau ci-dessus, et seulement ceux-là** (vérifier avec `list_channels` que l'id existe toujours et n'est pas déconnecté) :
-   - `create_post` avec `saveToDraft: true`, `schedulingType: "automatic"`, `text` = la légende, `assets: [{video: {url: <URL Pages>}}]`.
+   - `create_post` avec `saveToDraft: true`, `schedulingType: "automatic"`, `text` = la légende, `assets: [{video: {url: <URL publique de l'étape 7>}}]`.
    - Instagram : `metadata.instagram = {type: "reel", shouldShareToFeed: true, isAiGenerated: true}`.
    - TikTok : `metadata.tiktok = {isAiGenerated: true}`.
    - Si Buffer refuse l'URL (vidéo pas encore servie), attendre 2 min et réessayer **une** fois.
