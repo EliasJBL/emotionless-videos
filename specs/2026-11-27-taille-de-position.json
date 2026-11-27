@@ -1,0 +1,67 @@
+{
+  "id": "2026-11-27-taille-de-position",
+  "talk": "out/2026-11-27-taille-de-position-talk.mp4",
+  "hook": "Ta taille de position, tu la *devines* ?",
+  "kicker": "Gestion du risque",
+  "cta": "Ton journal de trading avec l'IA : _lien en bio._",
+  "caption": "Tu calcules ta taille de position, ou tu la sens ? 👇 #trading #gestiondurisque #daytrading #trader",
+  "lines": [
+    {
+      "text": "Tu prends un lot. Pourquoi, au fait ?",
+      "display": "Tu prends 1 lot. *Pourquoi*, au fait ?",
+      "scene": "cat"
+    },
+    {
+      "text": "Moi, je fais l'inverse.",
+      "scene": "cat"
+    },
+    {
+      "text": "Stop d'abord, risque en euros ensuite.",
+      "display": "Stop d'abord, risque en euros ensuite.",
+      "scene": "viz",
+      "kit": "checklist",
+      "data": {
+        "items": [
+          {
+            "text": "1 lot « parce que »",
+            "ok": false
+          },
+          {
+            "text": "Stop placé d'abord",
+            "ok": true
+          },
+          {
+            "text": "Risque fixé en €",
+            "ok": true
+          },
+          {
+            "text": "Taille = risque ÷ stop",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "text": "Cent euros, stop à vingt points : cinq euros le point.",
+      "display": "100 € ÷ 20 points = _5 € / point_.",
+      "scene": "viz",
+      "kit": "counter",
+      "data": {
+        "label": "Taille (exemple)",
+        "value": "5 €/pt",
+        "tone": "calm",
+        "sub": "100 € ÷ 20 points"
+      }
+    },
+    {
+      "text": "Le stop décide. Pas ton humeur.",
+      "display": "Le stop décide. Pas ton *humeur*.",
+      "scene": "cat"
+    },
+    {
+      "text": "Même risque, à chaque trade.",
+      "display": "_Même risque_, à chaque trade.",
+      "scene": "cat"
+    }
+  ]
+}

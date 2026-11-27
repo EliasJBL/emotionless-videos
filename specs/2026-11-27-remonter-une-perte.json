@@ -1,0 +1,77 @@
+{
+  "id": "2026-11-27-remonter-une-perte",
+  "talk": "out/2026-11-27-remonter-une-perte-talk.mp4",
+  "hook": "Pourquoi une grosse perte *coûte double*.",
+  "kicker": "Gestion du risque",
+  "cta": "Suis le compte pour le _prochain tip._",
+  "caption": "Ta plus grosse perte, il t'a fallu combien de temps pour la remonter ? 👇 #trading #gestiondurisque #psychologietrading #trader",
+  "lines": [
+    {
+      "text": "Perdre cinquante pour cent, ça se rattrape ?",
+      "display": "Perdre *50 %*, ça se rattrape ?",
+      "scene": "cat"
+    },
+    {
+      "text": "Pour revenir : plus cent pour cent.",
+      "display": "Pour revenir : *+100 %*.",
+      "scene": "viz",
+      "kit": "compare",
+      "data": {
+        "left": {
+          "label": "Perte",
+          "value": "−50 %",
+          "tone": "tilt",
+          "sub": "sur ton compte"
+        },
+        "right": {
+          "label": "Pour revenir",
+          "value": "+100 %",
+          "tone": "tilt",
+          "sub": "il te faut"
+        }
+      }
+    },
+    {
+      "text": "Plus tu creuses, plus la remontée est raide.",
+      "display": "Plus tu creuses, plus ça *monte raide*.",
+      "scene": "viz",
+      "kit": "bars",
+      "data": {
+        "items": [
+          {
+            "label": "−10 %",
+            "value": 11,
+            "display": "+11 %",
+            "tone": "calm"
+          },
+          {
+            "label": "−25 %",
+            "value": 33,
+            "display": "+33 %",
+            "tone": "line"
+          },
+          {
+            "label": "−50 %",
+            "value": 100,
+            "display": "+100 %",
+            "tone": "tilt"
+          }
+        ]
+      }
+    },
+    {
+      "text": "Alors je protège mon capital.",
+      "display": "Alors je _protège_ mon capital.",
+      "scene": "cat"
+    },
+    {
+      "text": "D'abord, ne pas creuser.",
+      "display": "D'abord, _ne pas creuser_.",
+      "scene": "cat"
+    },
+    {
+      "text": "Le gain peut attendre. Le capital, non.",
+      "scene": "cat"
+    }
+  ]
+}
