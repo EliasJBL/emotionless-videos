@@ -73,5 +73,5 @@
    "pose": "confident"
   }
  ],
- "clip": "talk-test-heygen"
+ "talk": "studio/clips/talk-test-heygen.mp4"
 }

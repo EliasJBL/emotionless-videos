@@ -119,8 +119,20 @@ def frame(spec, lines, end, t):
         base = Image.blend(base, Image.new("RGB", (W, H), (255, 255, 255)), 0.5)
     return base
 
+def use_talk(spec, spec_path):
+    """Spec avec `talk` : clip lip-sync de CETTE vidéo (chemin relatif au dépôt ou absolu), lu en synchro."""
+    if spec.get("talk"):
+        f = spec["talk"]
+        if not os.path.isabs(f):
+            f = os.path.join(os.path.dirname(ROOT), f)
+        CLIPS["_talk"] = {"file": f, "start": 0, "crop": "iw:ih:0:0", "sync": True}
+        spec["clip"] = "_talk"
+        for l in spec["lines"]:
+            l.pop("clip", None)
+    return spec
+
 def render(spec_path, out, vo):
-    spec = json.load(open(spec_path))
+    spec = use_talk(json.load(open(spec_path, encoding="utf-8")), spec_path)
     lines, end = E.build(spec, vo)
     tmp = out[:-4] + ".part.mp4"
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
@@ -136,7 +148,7 @@ def render(spec_path, out, vo):
     print(json.dumps({"out": out, "duration": round(end, 2)}))
 
 def check(spec_path, out, vo):
-    spec = json.load(open(spec_path))
+    spec = use_talk(json.load(open(spec_path, encoding="utf-8")), spec_path)
     lines, end = E.build(spec, vo)
     ts = [0.15, 0.6] + [(l["a"] + l["b"]) / 2 + 0.3 for l in lines] + [end - 0.2]
     sheet = Image.new("RGB", (216 * len(ts), 384))

@@ -307,7 +307,7 @@ def frame(spec, lines, end, t):
     return base
 
 def render(spec_path, out, vo):
-    spec = json.load(open(spec_path))
+    spec = json.load(open(spec_path, encoding="utf-8"))
     lines, end = build(spec, vo)
     tmp = out[:-4] + ".part.mp4"
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
@@ -324,7 +324,7 @@ def render(spec_path, out, vo):
                       "lines": [(round(l["a"], 2), round(l["b"], 2), l["text"][:40]) for l in lines]}, ensure_ascii=False))
 
 def check(spec_path, out, vo):
-    spec = json.load(open(spec_path))
+    spec = json.load(open(spec_path, encoding="utf-8"))
     lines, end = build(spec, vo)
     ts = [0.6] + [(l["a"] + l["b"]) / 2 + 0.3 for l in lines] + [end - 0.2]
     sheet = Image.new("RGB", (216 * len(ts), 384))
