@@ -17,6 +17,7 @@ JBL relit et valide les brouillons dans l'app Buffer. Rien n'est publié sans lu
 | Lip-sync | ElevenLabs `heygen-avatar6-turbo`, image de départ = nœud `d4PjCzuk3RvqjipXTdJe` (chatte au bureau, vertical) |
 | Flow ElevenLabs | `M1Iu3QBiuA7YmZmw6Oel` (tout se fait sur ce flow) |
 | Organisation Buffer | « My organization » — `6b08ba93d593469888bb01bf` |
+| Canaux Buffer autorisés | **TikTok emotionless.app — `6b08bfc48541f09ecbb834c6`** (+ Instagram emotionless.app quand il sera branché : son id sera ajouté ici). **Ne jamais poster sur un autre canal** : l'organisation contient aussi les comptes de clipping de JBL (Straight Talk On Love, straighttalkformen). |
 | Vidéos par passage | 2 |
 | Budget | ~4 900 crédits par vidéo. **Avant de générer** : `account_get_usage` ; s'il reste moins de 12 000 crédits, s'arrêter et prévenir JBL. |
 
@@ -38,11 +39,12 @@ JBL relit et valide les brouillons dans l'app Buffer. Rien n'est publié sans lu
 5. **Contrôle** : `python3 studio/engine2.py check specs/<id>.json out/<id>.png --vo out/<id>.mp3`, puis **regarder l'image**. Vérifier que chaque ligne s'affiche au bon moment et que rien ne déborde. Corriger la spec si besoin (jamais la voix).
 6. **Rendu** : `python3 studio/engine2.py render specs/<id>.json out/<id>.mp4 --vo out/<id>.mp3`.
 7. **Hébergement** : copier `out/<id>.mp4` vers `docs/videos/<id>.mp4` ; ajouter les ids à `tips/used.json` ; supprimer de `docs/videos/` les vidéos de plus de 28 jours ; `git add`, commit, `git push` sur `main`. Attendre ~2 min (déploiement Pages).
-8. **Buffer** : `list_channels` sur l'organisation. Pour chaque vidéo, sur **chaque** canal TikTok et Instagram :
+8. **Buffer** : pour chaque vidéo, sur **chaque canal autorisé du tableau ci-dessus, et seulement ceux-là** (vérifier avec `list_channels` que l'id existe toujours et n'est pas déconnecté) :
    - `create_post` avec `saveToDraft: true`, `schedulingType: "automatic"`, `text` = la légende, `assets: [{video: {url: <URL Pages>}}]`.
    - Instagram : `metadata.instagram = {type: "reel", shouldShareToFeed: true, isAiGenerated: true}`.
    - TikTok : `metadata.tiktok = {isAiGenerated: true}`.
    - Si Buffer refuse l'URL (vidéo pas encore servie), attendre 2 min et réessayer **une** fois.
+   - Légende (`text`) = le champ `caption` de la spec : une question qui fait commenter, 3 à 5 hashtags, pas de lien (le lien est dans la bio). JBL peut la retoucher dans le brouillon avant de valider.
 9. **Compte rendu** : message court à JBL : les 2 sujets, les légendes, les crédits restants, « brouillons prêts dans Buffer, à valider », et tout problème (canal manquant, Pages pas actif, échec).
 
 ## Format de spec
