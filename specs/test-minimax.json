@@ -1,0 +1,77 @@
+{
+ "id": "test-minimax",
+ "hook": "Pourquoi ton compte *fond*, en 15 secondes.",
+ "kicker": "Gestion du risque",
+ "cta": "Ton journal de trading avec l'IA : _lien en bio._",
+ "caption": "Tu risques combien par trade ? Dis-le en commentaire 👇 #trading #gestiondurisque #psychologietrading #trader #daytrading",
+ "lines": [
+  {
+   "text": "Tu veux savoir pourquoi ton compte fond ?",
+   "display": "Tu veux savoir pourquoi ton compte *fond* ?",
+   "scene": "cat",
+   "pose": "point"
+  },
+  {
+   "text": "Tu risques trois pour cent par trade.",
+   "display": "Tu risques *3 %* par trade.",
+   "scene": "viz",
+   "pose": "think",
+   "kit": "counter",
+   "data": {
+    "label": "Risque par trade",
+    "value": "3 %",
+    "tone": "tilt"
+   }
+  },
+  {
+   "text": "Cinq pertes d'affilée, et t'as perdu quinze pour cent.",
+   "display": "5 pertes d'affilée : *−15 %*.",
+   "scene": "viz",
+   "pose": "shock",
+   "kit": "candles",
+   "data": {
+    "trend": "down",
+    "mark": "−15 %",
+    "tone": "tilt"
+   }
+  },
+  {
+   "text": "Ça arrive à tout le monde.",
+   "scene": "cat",
+   "pose": "facepalm"
+  },
+  {
+   "text": "Moi, je risque un pour cent.",
+   "display": "Moi, je risque _1 %_.",
+   "scene": "cat",
+   "pose": "confident"
+  },
+  {
+   "text": "Les mêmes cinq pertes ? Cinq pour cent.",
+   "display": "Les mêmes 5 pertes ? _−5 %_.",
+   "scene": "viz",
+   "pose": "confident",
+   "kit": "compare",
+   "data": {
+    "left": {
+     "label": "Risque 3 %",
+     "value": "−15 %",
+     "tone": "tilt",
+     "sub": "après 5 pertes"
+    },
+    "right": {
+     "label": "Risque 1 %",
+     "value": "−5 %",
+     "tone": "calm",
+     "sub": "après 5 pertes"
+    }
+   }
+  },
+  {
+   "text": "Je suis encore là demain.",
+   "scene": "cat",
+   "pose": "confident"
+  }
+ ],
+ "clip": "talk-test-minimax"
+}

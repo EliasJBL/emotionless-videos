@@ -1,3 +1,22 @@
 {
-  "explique-bureau": {"file": "explique-bureau.mp4", "start": 2.3, "crop": "608:1080:690:0", "pose": "explique, patte levée, bureau de nuit"}
+ "explique-bureau": {
+  "file": "explique-bureau.mp4",
+  "start": 2.3,
+  "crop": "608:1080:690:0",
+  "pose": "explique, patte levée, bureau de nuit"
+ },
+ "talk-test-heygen": {
+  "file": "talk-test-heygen.mp4",
+  "start": 0,
+  "crop": "iw:ih:0:0",
+  "sync": true,
+  "pose": "parle face caméra (lip-sync HeyGen)"
+ },
+ "talk-test-minimax": {
+  "file": "talk-test-minimax.mp4",
+  "start": 0,
+  "crop": "iw:ih:0:0",
+  "sync": true,
+  "pose": "parle face caméra (lip-sync MiniMax)"
+ }
 }

@@ -27,16 +27,19 @@ def clip_frames(name):
                               "-vf", vf, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
         n = len(raw) // (W * H * 3)
         fr = [Image.frombytes("RGB", (W, H), raw[i * W * H * 3:(i + 1) * W * H * 3]) for i in range(n)]
-        _frames[name] = fr + fr[-2:0:-1]
+        _frames[name] = fr if c.get("sync") else fr + fr[-2:0:-1]
     return _frames[name]
 
 def clip_at(name, t):
+    """Clip « sync » (lèvres synchronisées sur la voix) : lu au temps réel de la vidéo ; sinon boucle aller-retour."""
     fr = clip_frames(name)
+    if CLIPS[name].get("sync"):
+        return fr[min(int(t * FPS), len(fr) - 1)]
     return fr[int(t * FPS) % len(fr)]
 
 def blurred_at(name, t):
     fr = clip_frames(name)
-    i = int(t * FPS) % len(fr)
+    i = min(int(t * FPS), len(fr) - 1) if CLIPS[name].get("sync") else int(t * FPS) % len(fr)
     key = (name, i)
     if key not in _blur:
         im = fr[i].resize((W // 4, H // 4)).filter(ImageFilter.GaussianBlur(6)).resize((W, H))
