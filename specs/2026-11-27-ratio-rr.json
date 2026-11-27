@@ -1,0 +1,22 @@
+{
+  "id": "2026-11-27-ratio-rr",
+  "talk": "out/2026-11-27-ratio-rr-talk.mp4",
+  "hook": "4 trades gagnants sur 10, c'est *nul* ?",
+  "kicker": "Gestion du risque",
+  "cta": "Suis le compte pour le _prochain tip._",
+  "caption": "Tu regardes ton taux de réussite, ou ton ratio ? 👇 #trading #gestiondurisque #daytrading #trader",
+  "lines": [
+    {"text": "Quatre trades gagnants sur dix. C'est nul ?", "display": "*4 gagnants sur 10*. C'est nul ?", "scene": "cat"},
+    {"text": "Fais le calcul.", "scene": "cat"},
+    {"text": "Six pertes à un R. Quatre gains à deux R.", "display": "6 pertes à 1R. 4 gains à 2R.", "scene": "viz", "kit": "bars", "data": {"items": [
+      {"label": "6 pertes × 1R", "value": 6, "display": "−6R", "tone": "tilt"},
+      {"label": "4 gains × 2R", "value": 8, "display": "+8R", "tone": "calm"}
+    ]}},
+    {"text": "Moins six, plus huit : plus deux R.", "display": "−6R + 8R = _+2R_ (exemple)", "scene": "viz", "kit": "compare", "data": {
+      "left": {"label": "Taux de réussite", "value": "40 %", "tone": "tilt", "sub": "sur 10 trades"},
+      "right": {"label": "Résultat", "value": "+2R", "tone": "calm", "sub": "avec un ratio 1:2"}
+    }},
+    {"text": "Le taux de réussite seul ne veut rien dire.", "display": "Le taux de réussite *seul* ne dit rien.", "scene": "cat"},
+    {"text": "Regarde-le toujours avec ton ratio.", "display": "_Toujours avec ton ratio._", "scene": "cat"}
+  ]
+}
