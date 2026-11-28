@@ -72,3 +72,10 @@ JBL relit et valide les brouillons dans l'app Buffer. Rien n'est publié sans lu
   - `checklist` : `{items: [{text, ok}]}` — règles ✓ / ✗ (max 5, texte court).
   - `compare` : `{left: {label, value, tone, sub}, right: {...}}` — deux colonnes.
 - `tone` : `tilt` (orange, erreur) ou `calm` (bleu, règle) ou `line` (gris).
+
+## Horaires et suivi des résultats
+
+- **Heure de publication** : lire `experiment/horaires.json`, prendre l'entrée dont la période contient la date du jour (Europe/Paris), publier à son `heure` (`mode: "customScheduled"`, `dueAt` avec l'offset de Paris). Hors liste : 17:30.
+- **Tableau de suivi** (Sheet Claude Docs `bdacf136-da35-4875-9421-d92f258b0114`, nœud `4cd16cf9-4629`, onglet `Publications`, colonnes A Semaine · B Date · C Heure · D Sujet · E Vues · F Likes · G Comm. · H Partages · I Temps moyen (s) · J Durée (s) · K % regardé (formule) · L Engagement (formule) · M Légende). Avant toute écriture : `guide(items=["topic.sheets"])` puis `readSheets` et `readCells` pour avoir la révision.
+  1. Pour la vidéo du jour : remplir sa ligne (si une ligne « (vidéo auto du jour) » existe à cette date, la compléter ; sinon en ajouter une sous la dernière, avec les formules K et L recopiées) : semaine, date, heure, sujet, durée, légende.
+  2. Résultats : `list_posts` Buffer (canal TikTok emotionless.app, `includeMetrics: true`, publiés depuis 14 jours) ; pour chaque post publié depuis plus de 24 h, écrire dans sa ligne (même date et heure) : vues (`views`), likes (`reactions`), commentaires, partages, temps moyen (`averageTimeWatched`). Ne jamais toucher aux colonnes K et L ni aux lignes déjà remplies par JBL à la main sans raison.
