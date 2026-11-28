@@ -1,16 +1,61 @@
 {
-  "fuseau": "Europe/Paris",
-  "note": "Test des horaires TikTok : un horaire de publication par semaine, du lundi au dimanche. Toute date hors liste = 17:30.",
-  "semaines": [
-    {"semaine": "S1", "du": "2026-11-28", "au": "2026-12-06", "heure": "17:30"},
-    {"semaine": "S2", "du": "2026-12-07", "au": "2026-12-13", "heure": "12:30"},
-    {"semaine": "S3", "du": "2026-12-14", "au": "2026-12-20", "heure": "20:30"},
-    {"semaine": "S4", "du": "2026-12-21", "au": "2026-12-27", "heure": "07:30"}
-  ],
-  "suivi": {
-    "sheet_url": "https://claude.ai/artifact/QRURmwe9FNtJ9fgP7DdMhM",
-    "sheet_id": "bdacf136-da35-4875-9421-d92f258b0114",
-    "workbook_node": "4cd16cf9-4629",
-    "onglet_publications": "Publications"
+ "fuseau": "Europe/Paris",
+ "note": "Test des horaires TikTok : un horaire de publication par semaine, du lundi au dimanche. Toute date hors liste = 17:30.",
+ "semaines": [
+  {
+   "semaine": "S1",
+   "du": "2026-11-28",
+   "au": "2026-12-06",
+   "heure": "17:30"
+  },
+  {
+   "semaine": "S2",
+   "du": "2026-12-07",
+   "au": "2026-12-13",
+   "heure": "12:30"
+  },
+  {
+   "semaine": "S3",
+   "du": "2026-12-14",
+   "au": "2026-12-20",
+   "heure": "20:30"
+  },
+  {
+   "semaine": "S4",
+   "du": "2026-12-21",
+   "au": "2026-12-27",
+   "heure": "07:30"
   }
+ ],
+ "suivi": {
+  "sheet_url": "https://claude.ai/artifact/QRURmwe9FNtJ9fgP7DdMhM",
+  "sheet_id": "bdacf136-da35-4875-9421-d92f258b0114",
+  "workbook_node": "4cd16cf9-4629",
+  "onglet_publications": "Publications"
+ },
+ "accroches": {
+  "note": "Type d'accroche par date (rotation équilibrée : chaque type passe 5 fois et tombe sur chaque horaire). Hors liste : continuer la rotation Question → Chiffre choc → Contre-intuitif → POV.",
+  "par_date": {
+   "2026-11-30": "Question",
+   "2026-12-01": "Chiffre choc",
+   "2026-12-02": "Contre-intuitif",
+   "2026-12-03": "POV",
+   "2026-12-04": "Question",
+   "2026-12-07": "Chiffre choc",
+   "2026-12-08": "Contre-intuitif",
+   "2026-12-09": "POV",
+   "2026-12-10": "Question",
+   "2026-12-11": "Chiffre choc",
+   "2026-12-14": "Contre-intuitif",
+   "2026-12-15": "POV",
+   "2026-12-16": "Question",
+   "2026-12-17": "Chiffre choc",
+   "2026-12-18": "Contre-intuitif",
+   "2026-12-21": "POV",
+   "2026-12-22": "Question",
+   "2026-12-23": "Chiffre choc",
+   "2026-12-24": "Contre-intuitif",
+   "2026-12-25": "POV"
+  }
+ }
 }

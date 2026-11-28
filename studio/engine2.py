@@ -91,8 +91,8 @@ def frame(spec, lines, end, t):
     clip = cur.get("clip") or spec.get("clip") or next(iter(CLIPS))
     k = (t - cur["t0"]) / max(0.1, cur["t1"] - cur["t0"])
     shake = (0, 0)
-    if t < 0.3:
-        a = 18 * (1 - t / 0.3)
+    if t < 0.3 or (spec.get("hook_style") == "chiffre" and t < 0.35):
+        a = (26 if spec.get("hook_style") == "chiffre" else 18) * (1 - min(t, 0.3) / 0.3)
         shake = (int(a * math.sin(t * 90)), int(a * math.cos(t * 70)))
     if cur.get("scene") == "viz":
         base = push(blurred_at(clip, t), k, 1.04, 1.0)
@@ -112,7 +112,18 @@ def frame(spec, lines, end, t):
     else:
         E.kinetic(d, E.parse(cur.get("display", cur["text"])), cur["a"], cur["b"], tq, 1500)
         if t < min(3.2, lines[0]["t1"] + 0.6) and spec.get("hook"):
-            hook_pop(d, E.parse(spec["hook"]), t, 300)
+            if spec.get("hook_style") == "chiffre" and spec.get("hook_number"):
+                # accroche « chiffre choc » : un chiffre géant claque à l'image, la phrase se pose dessous
+                k = E.ease(t / 0.14)
+                size = int(190 * (1.8 - 0.8 * k))
+                fN = E.font("B800", size)
+                txt = spec["hook_number"]
+                tw = d.textlength(txt, font=fN) / SS
+                d.text((P(540 - tw / 2), P(150 - (size - 190) * 0.5)), txt, font=fN, fill=E.C["tilt"])
+                if t >= 0.35:
+                    hook_pop(d, E.parse(spec["hook"]), t - 0.35, 440)
+            else:
+                hook_pop(d, E.parse(spec["hook"]), t, 300)
         if cur is lines[-1] and spec.get("cta"):
             hook_pop(d, E.parse(spec["cta"]), t - cur["t0"], 300)
     d.text((P(72), P(140)), "@emotionless.app", font=E.F_MONO_S, fill=(200, 204, 212, 230))
